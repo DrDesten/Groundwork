@@ -13,6 +13,9 @@ vec2 getLmCoord() {
 float getID(vec4 entityAttribute) {
     return entityAttribute.x - 1000;
 }
+float getID(int entityId) {
+    return float(entityId - 1000);
+}
 
 mat3 getTBN(vec4 tangentAttribute) {
 	vec3 normal  = normalize(gl_NormalMatrix * gl_Normal);
