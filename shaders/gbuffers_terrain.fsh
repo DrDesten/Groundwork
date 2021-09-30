@@ -8,14 +8,15 @@ varying vec3  vertNormal;
 varying float id;
 varying vec4  glcolor;
 
-/* DRAWBUFFERS:012 */
+/* DRAWBUFFERS:0123 */
 void main() {
 	vec4 color = texture2D(texture, coord, 0);
-	color.rgb *= glcolor.rgb;// * glcolor.a;
+	color.rgb *= glcolor.rgb;
 	color.rgb *= texture2D(lightmap, lmcoord).rgb;
 	color.rgb = gamma(color.rgb);
 
 	FD0 = color; // Color
 	FD1 = vec4(vertNormal, 1); // Normal
 	FD2 = vec4(codeID(id), vec3(1)); // ID
+	FD3 = vec4(vec3(sq(glcolor.a)), 1); // AO
 }
