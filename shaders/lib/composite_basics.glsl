@@ -1,13 +1,14 @@
-#define FD0 gl_FragData[0]
-#define FD1 gl_FragData[1]
-#define FD2 gl_FragData[2]
-#define FD3 gl_FragData[3]
-#define FD4 gl_FragData[4]
-#define FD5 gl_FragData[5]
-#define FD6 gl_FragData[6]
-#define FD7 gl_FragData[7]
-#define FD8 gl_FragData[8]
-#define FD9 gl_FragData[9]
+layout(location = 0) out vec4 FD0;
+layout(location = 1) out vec4 FD1;
+layout(location = 2) out vec4 FD2;
+layout(location = 3) out vec4 FD3;
+layout(location = 4) out vec4 FD4;
+layout(location = 5) out vec4 FD5;
+layout(location = 6) out vec4 FD6;
+layout(location = 7) out vec4 FD7;
+layout(location = 8) out vec4 FD8;
+layout(location = 9) out vec4 FD9;
+
 
 uniform sampler2D colortex0; // Color
 uniform sampler2D colortex1; // Normals
@@ -15,17 +16,17 @@ uniform sampler2D colortex2; // ID
 uniform sampler2D depthtex0; // Depth
 
 vec3 getColor(vec2 co) {
-    return texture2D(colortex0, co).rgb;
+    return texture(colortex0, co).rgb;
 }
 float getDepth(vec2 co) {
-    return texture2D(depthtex0, co).x;
+    return texture(depthtex0, co).x;
 }
 
 vec3 getNormal(vec2 co) {
-    return texture2D(colortex1, co).xyz;
+    return texture(colortex1, co).xyz;
 }
 float getID(vec2 co) {
-    return floor(texture2D(colortex2, co).x * 255 + 0.5);
+    return floor(texture(colortex2, co).x * 255 + 0.5);
 }
 float codeID(float id) {
     return id * .00392156862745;

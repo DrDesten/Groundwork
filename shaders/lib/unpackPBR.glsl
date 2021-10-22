@@ -17,10 +17,10 @@ uniform sampler2D normals;
 
 // TEXTURE READOUTS
 vec4 NormalTex(vec2 coord) {
-    return texture2D(normals, coord);
+    return texture(normals, coord);
 }
 vec4 SpecularTex(vec2 coord) {
-    return texture2D(specular, coord);
+    return texture(specular, coord);
 }
 
 

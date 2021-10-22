@@ -1,24 +1,24 @@
-#define FD0 gl_FragData[0]
-#define FD1 gl_FragData[1]
-#define FD2 gl_FragData[2]
-#define FD3 gl_FragData[3]
-#define FD4 gl_FragData[4]
-#define FD5 gl_FragData[5]
-#define FD6 gl_FragData[6]
-#define FD7 gl_FragData[7]
-#define FD8 gl_FragData[8]
-#define FD9 gl_FragData[9]
+layout(location = 0) out vec4 FD0;
+layout(location = 1) out vec4 FD1;
+layout(location = 2) out vec4 FD2;
+layout(location = 3) out vec4 FD3;
+layout(location = 4) out vec4 FD4;
+layout(location = 5) out vec4 FD5;
+layout(location = 6) out vec4 FD6;
+layout(location = 7) out vec4 FD7;
+layout(location = 8) out vec4 FD8;
+layout(location = 9) out vec4 FD9;
 
-uniform sampler2D texture;   // Color
+uniform sampler2D gtexture;  // Color
 uniform sampler2D lightmap;  // Lightmap
 
 vec4 getColor(vec2 co) {
-    return texture2D(texture, co);
+    return texture(gtexture, co);
 }
 vec3 getLightmap(vec2 co) {
-    return texture2D(lightmap, co).rgb;
+    return texture(lightmap, co).rgb;
 }
 
 float codeID(float id) {
-    return id * .00392156862745;
+    return id * .00392156862745; // Equivalent to 'return id/255'
 }

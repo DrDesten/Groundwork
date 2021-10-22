@@ -1,3 +1,3 @@
-#version 120
+#version 430 compatibility
 #define OVERWORLD
 #include "/gbuffers_skytextured.fsh"
