@@ -4,18 +4,19 @@
 
 uniform vec4 entityColor;
 
-varying vec2 lmcoord;
-varying vec2 coord;
-varying vec3 vertNormal;
-varying vec4 glcolor;
+in vec2 lmcoord;
+in vec2 coord;
+in vec3 vertNormal;
+in vec4 glcolor;
 
-/* DRAWBUFFERS:01 */
+/* DRAWBUFFERS:013 */
 void main() {
-	vec4 color = texture2D(texture, coord, 0) * glcolor;
+	vec4 color = getColor(coord) * glcolor;
 	color.rgb  = mix(color.rgb, entityColor.rgb, entityColor.a);
-	color.rgb *= texture2D(lightmap, lmcoord).rgb;
+	color.rgb *= texture(lightmap, lmcoord).rgb;
 	color.rgb  = gamma(color.rgb);
 
 	FD0 = color; // Color
 	FD1 = vec4(vertNormal, 1); // Normal
+	FD2 = vec4(1); // AO
 }

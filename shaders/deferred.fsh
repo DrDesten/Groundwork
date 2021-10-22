@@ -6,12 +6,12 @@
 uniform vec2  screenSize;
 uniform float nearInverse;
 
-varying vec2 coord;
+uniform sampler2D colortex3;
+uniform sampler2D noisetex;
+
+in vec2 coord;
 
 float distanceAttenuation(float x, float maxval) {
-    return 1 - sq(x / maxval);
-}
-float distanceAttenuation2(float x, float maxval) {
     return sq( (x - maxval) / maxval );
 }
 
@@ -28,27 +28,32 @@ float SimpleSSAO(vec2 coord, float radius, float dither) {
     vec3  normal = getNormal(coord);
 
     radius /= length(toView(vec3(coord, depth) * 2 - 1)) * 8;
+    radius *= fovScale;
 
     float ao = 0.0;
+    float norm = 0.0;
+    float s = 0.25 + dither;
     for (int i = 0; i < 4; i++) {
 
-        vec2  offs = spiralOffset(i + dither, 8) * radius;
-        float s1   = getDepth(coord + offs);
-        float s2   = getDepth(coord - offs);
+        s += 0.5 + dither;
+        vec2  offs = spiralOffset(s, 8) * radius;
+        float s1   = linearizeDepthf(getDepth(coord + offs), nearInverse);
+        float s2   = linearizeDepthf(getDepth(coord - offs), nearInverse);
 
-        float attenuation = saturate(distanceAttenuation2(i * radius, 8 * radius));
-        ao += saturate( ( (ldepth - linearizeDepthf(s1, nearInverse)) ) + ( (ldepth - linearizeDepthf(s2, nearInverse)) ) ) * attenuation;
+        float attenuation = saturate(distanceAttenuation(i * radius, 8 * radius));
+        ao   += saturate( (ldepth - s1) + (ldepth - s2) ) * attenuation;
+        norm += attenuation;
 
     }
 
-    return sq(1 - (ao / 8));
+    return sq(1 - (ao / norm));
 }
 
-/* DRAWBUFFERS:0 */
+/* DRAWBUFFERS:3 */
 void main() {
-    vec3 color = texture2D(colortex0, coord).rgb;
+    vec3 lighting = texture(colortex3, coord).rgb;
 
-    color *= vec3(SimpleSSAO(coord, 1, Bayer8(coord * screenSize) * 0.1));// * 0.5 + 0.5;
+    lighting *= vec3(SimpleSSAO(coord, .5, texture(noisetex, coord * (screenSize / 64)).x * 0.1));// * 0.5 + 0.5;
 
-    FD0 = vec4(color, 1.0);
+    FD0 = vec4(lighting, 1.0);
 }

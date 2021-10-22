@@ -2,13 +2,13 @@
 #include "/lib/math.glsl"
 #include "/lib/gbuffers_basics.glsl"
 
-varying vec2 coord;
-varying vec3 vertNormal;
-varying vec4 glcolor;
+in vec2 coord;
+in vec3 vertNormal;
+in vec4 glcolor;
 
 /* DRAWBUFFERS:01 */
 void main() {
-	vec4 color = texture2D(texture, coord, 0) * glcolor;
+	vec4 color = getColor(coord) * glcolor;
 	color.rgb  = gamma(color.rgb);
 
 	FD0 = color; // Color

@@ -5,7 +5,7 @@
 uniform vec3 fogColor;
 uniform vec3 skyColor;
 
-varying vec4 glcolor;
+in vec4 glcolor;
 
 /* DRAWBUFFERS:0 */
 void main() {

@@ -4,11 +4,11 @@
 
 uniform int   blockEntityId;
 
-varying vec2  lmcoord;
-varying vec2  coord;
-varying vec3  vertNormal;
-varying float id;
-varying vec4  glcolor;
+out vec2  lmcoord;
+out vec2  coord;
+out vec3  vertNormal;
+out float id;
+out vec4  glcolor;
 
 void main() {
 	gl_Position = ftransform();
