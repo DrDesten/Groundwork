@@ -41,7 +41,7 @@ void main() {
 	
 	vec3 screenPos = playerToEqui3(playerPos.xyz);
 	//screenPos.z    = 1 - exp2(-screenPos.z);
-	screenPos.z    = 1 - pow(1.1, -screenPos.z);
+	screenPos.z    = 1 - pow(1.02, -screenPos.z);
 
 	gl_Position       = vec4(screenPos * 2 - 1, 1);
 	originalPlayerPos = playerPos.xyz;

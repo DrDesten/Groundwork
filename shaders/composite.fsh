@@ -8,7 +8,7 @@ const int colortex3Format = RGB16F       // Lighting
 
 
 
-const int shadowcolor0Format = RGBA8       // Shadow
+const int shadowcolor0Format = RGBA16       // Shadow
 */
 
 const vec4 colortex3ClearColor = vec4(1,1,1,1);  // Lighting

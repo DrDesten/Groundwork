@@ -5,6 +5,9 @@
 #include "/lib/gbuffers_basics.glsl"
 
 uniform vec2 screenSizeInverse;
+
+uniform sampler2D shadowcolor0;
+uniform sampler2D shadowtex0;
 layout (rgba8) uniform image2D shadowcolorimg0;
 
 in vec2  lmcoord;
@@ -36,17 +39,29 @@ void main() {
 	color.rgb  = gamma(color.rgb);
 
 	vec3 screenPos = playerToEqui3(originalPlayerPos.xyz);
-	vec2 error     = screenPos.xy - (gl_FragCoord.xy / shadowMapResolution);
-	//color = vec4(length(error));
+	vec2 error     = screenPos.xy * shadowMapResolution - gl_FragCoord.xy;
+	
+	color.a  = step(0.01, color.a); 						// preserve transparent cutout
+	color.a *= 1 - pow(1.02, -length(originalPlayerPos));	// Custom depth format
 
-	//color = vec4(screenPos.xy, 0, 1);
-	//color = vec4(gl_FragCoord.xy / shadowMapResolution, 0, 1);
+	if (sqmag(error) >= 0.) {
+		ivec2 intCoords = ivec2(screenPos.xy * shadowMapResolution + 0.5);
 
-	//imageStore(shadowcolorimg0, ivec2(screenPos.xy * shadowMapResolution + 0.5), vec4(0,0,0,1));
-	if (length(error) > 1.5 / shadowMapResolution) {
-		imageStore(shadowcolorimg0, ivec2(gl_FragCoord.xy), vec4(0,0,0,1));
-		color.a = 0;
+		float prevDepth = min(texelFetch(shadowcolor0, intCoords, 0).a, texelFetch(shadowtex0, intCoords, 0).x);
+		if (prevDepth > color.a && color.a != 0) {
+			imageStore(shadowcolorimg0, intCoords, color);
+		}
+
+		/* if (sqmag(error) > 0.5) {
+			color.a = 0;
+		} */
 	}
+
+	/* ivec2 intCoords = ivec2(gl_FragCoord.xy);
+	float prevDepth = texelFetch(shadowcolor0, intCoords, 0).a;
+	if (prevDepth > color.a && color.a != 0) {
+		imageStore(shadowcolorimg0, intCoords, color);
+	} */
 
 	//color.rgb = vec3(length(error) > 1.5 / shadowMapResolution);
 	color.a = 0;
