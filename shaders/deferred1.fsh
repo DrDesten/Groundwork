@@ -43,9 +43,9 @@ vec4 filterBlurDepth(sampler2D ctex, sampler2D dtex, vec2 coord) {
 void main() {
     vec3 color = getColor(coord);
 
-    //color *= texture(colortex3, coord).rgb;
+    color *= texture(colortex3, coord).rgb;
     //color *= filterBlur3x3(colortex3, coord).rgb;
-    color *= filterBlurDepth(colortex3, depthtex0, coord).rgb * 0.9 + 0.1;
+    //color *= filterBlurDepth(colortex3, depthtex0, coord).rgb * 0.9 + 0.1;
 
     FD0 = vec4(color, 1.0);
 }

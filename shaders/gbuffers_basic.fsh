@@ -9,8 +9,7 @@ in vec4 glcolor;
 
 /* DRAWBUFFERS:01 */
 void main() {
-	vec4 color = getColor(coord);
-	color.rgb *= glcolor.rgb;
+	vec4 color = getColor(coord) * glcolor;
 	color.rgb *= texture(lightmap, lmcoord).rgb;
 	color.rgb  = gamma(color.rgb);
 

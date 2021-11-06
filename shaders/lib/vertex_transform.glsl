@@ -34,12 +34,18 @@ vec4 getView4() {
     return gl_ModelViewMatrix * gl_Vertex;
 }
 
-vec4 getPlayer() {
-    return gbufferModelViewInverse * (gl_ModelViewMatrix * gl_Vertex);
+vec3 getPlayer() {
+    return mat3(gbufferModelViewInverse) * getView() + gbufferModelViewInverse[3].xyz;
+}
+vec4 getPlayer4() {
+    return gbufferModelViewInverse * getView4();
 }
 
 vec4 toPlayer(vec4 viewPos) {
     return gbufferModelViewInverse * viewPos;
+}
+vec3 toPlayer(vec3 viewPos) {
+    return mat3(gbufferModelViewInverse) * viewPos + gbufferModelViewInverse[3].xyz;
 }
 
 vec4 playerToClip(vec4 playerPos) {

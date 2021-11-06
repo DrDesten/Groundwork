@@ -19,6 +19,13 @@ vec3 getLightmap(vec2 co) {
     return texture(lightmap, co).rgb;
 }
 
+void getLmDir(in vec2 co, out vec2 skyLight, out vec2 blockLight) {
+    blockLight = -vec2(dFdx(co.x), dFdy(co.x));
+    blockLight = abs(blockLight.x) + abs(blockLight.y) < 1e-6 ? blockLight : normalize(blockLight);
+    skyLight   = -vec2(dFdx(co.y), dFdy(co.y));
+    skyLight   = abs(skyLight.x)   + abs(skyLight.y)   < 1e-6 ? skyLight   : normalize(skyLight);
+}
+
 float codeID(float id) {
     return id * .00392156862745; // Equivalent to 'return id/255'
 }

@@ -9,7 +9,7 @@ in vec2 coord;
 /* DRAWBUFFERS:0 */
 void main() {
     vec3 color = getColor(coord);
-    color = texture(shadowcolor0, coord).rgb;
+    //color = texture(shadowcolor0, coord).rgb;
 
     color = gamma_inv(color);
 

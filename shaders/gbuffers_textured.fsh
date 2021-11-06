@@ -2,6 +2,10 @@
 #include "/lib/math.glsl"
 #include "/lib/gbuffers_basics.glsl"
 
+#ifdef PBR
+#include "/lib/unpackPBR.glsl"
+#endif
+
 in vec2 lmcoord;
 in vec2 coord;
 in vec3 vertNormal;

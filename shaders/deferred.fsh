@@ -15,13 +15,6 @@ float distanceAttenuation(float x, float maxval) {
     return sq( (x - maxval) / maxval );
 }
 
-// Spins A point around the origin (negate for full coverage)
-vec2 spiralOffset(float x, float expansion) {
-    float n = fract(x * expansion) * PI;
-    return vec2(cos(n), sin(n)) * x;
-}
-
-
 float SimpleSSAO(vec2 coord, float radius, float dither) {
     float depth  = getDepth(coord);
     float ldepth = linearizeDepthf(depth, nearInverse);
@@ -53,7 +46,7 @@ float SimpleSSAO(vec2 coord, float radius, float dither) {
 void main() {
     vec3 lighting = texture(colortex3, coord).rgb;
 
-    lighting *= vec3(SimpleSSAO(coord, .5, texture(noisetex, coord * (screenSize / 64)).x * 0.1));// * 0.5 + 0.5;
+    //lighting *= vec3(SimpleSSAO(coord, .5, texture(noisetex, coord * (screenSize / 64)).x * 0.1));// * 0.5 + 0.5;
 
     FD0 = vec4(lighting, 1.0);
 }

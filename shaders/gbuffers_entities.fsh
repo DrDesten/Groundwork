@@ -2,6 +2,10 @@
 #include "/lib/math.glsl"
 #include "/lib/gbuffers_basics.glsl"
 
+#ifdef PBR
+#include "/lib/unpackPBR.glsl"
+#endif
+
 uniform vec4 entityColor;
 
 in vec2 lmcoord;
