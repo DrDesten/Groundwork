@@ -1,12 +1,11 @@
 #include "/lib/settings.glsl"
 #include "/lib/math.glsl"
 #include "/lib/gbuffers_basics.glsl"
+#include "/lib/shadow_fragment.glsl"
 
 #ifdef PBR
 #include "/lib/unpackPBR.glsl"
 #endif
-
-uniform sampler2D shadowtex0;
 
 in vec2  lmcoord;
 in vec2  coord;
@@ -19,17 +18,11 @@ in vec4  shadowPos;
 void main() {
 
 	vec2 lm = lmcoord;
-	if (shadowPos.w > 0.0) {	
-
-		float shadowDepth = texture2D(shadowtex0, shadowPos.xy).x;
-		if (shadowPos.z > shadowDepth) {
-			lm.y *= 0.5;
-		} else {
-			lm.y = shadowPos.w * .5 + .5;
-		}
-
+	bool shadow = isShadow(shadowPos.xyz, shadowPos.w);
+	if (shadow) {
+		lm.y *= 0.5;
 	} else {
-		lm.y *= shadowPos.w * .5 + .5;
+		lm.y  = shadowPos.w * 0.5 + .5;
 	}
 
 	vec4 color = getColor(coord);

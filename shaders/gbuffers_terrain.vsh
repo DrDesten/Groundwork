@@ -18,7 +18,7 @@ void main() {
 
 	vec3  normal  = getNormal();
 	vec3  viewPos = getView();
-	float Ldot    = dot(normalize(shadowLightPosition), normal);
+	float Ldot    = saturate(dot(normalize(shadowLightPosition), normal) * 1.01 - 0.01);
 
 	if (Ldot > 0.0) {
 		vec3 playerPos  = toPlayer(viewPos);
