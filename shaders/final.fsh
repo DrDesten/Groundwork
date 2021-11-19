@@ -1,5 +1,6 @@
 #include "/lib/settings.glsl"
 #include "/lib/math.glsl"
+#include "/lib/kernels.glsl"
 #include "/lib/composite_basics.glsl"
 
 uniform sampler2D shadowcolor0;

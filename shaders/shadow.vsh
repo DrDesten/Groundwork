@@ -17,6 +17,8 @@ void main() {
 	clipPos.xyz  = shadowDistortion(clipPos.xyz);
 	gl_Position  = clipPos;
 
+	if (mc_Entity.x == 1002) {gl_Position = vec4(-2, -2, -2, 0);}
+
 	coord      = getCoord();
 	lmcoord    = getLmCoord();
 	glcolor    = gl_Color;

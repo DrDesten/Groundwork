@@ -1,7 +1,7 @@
 #include "/lib/settings.glsl"
 #include "/lib/math.glsl"
-#include "/lib/composite_basics.glsl"
 #include "/lib/kernels.glsl"
+#include "/lib/composite_basics.glsl"
 
 uniform vec2 screenSizeInverse;
 uniform float nearInverse;

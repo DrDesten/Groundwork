@@ -240,6 +240,16 @@ float sqmag(vec4 v) {
     return dot(v, v);
 }
 
+float manhattan(vec2 v) {
+    return abs(v.x) + abs(v.y);
+}
+float manhattan(vec3 v) {
+    return abs(v.x) + abs(v.y) + abs(v.z);
+}
+float manhattan(vec4 v) {
+    return abs(v.x) + abs(v.y) + abs(v.z) + abs(v.w);
+}
+
 
 float sq(float x) {
     return x * x;

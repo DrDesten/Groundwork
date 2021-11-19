@@ -1,5 +1,6 @@
 #include "/lib/settings.glsl"
 #include "/lib/math.glsl"
+#include "/lib/kernels.glsl"
 #include "/lib/gbuffers_basics.glsl"
 
 in vec2 lmcoord;

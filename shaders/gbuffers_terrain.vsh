@@ -11,6 +11,7 @@ out vec3  vertNormal;
 out float id;
 out vec4  glcolor;
 out vec4  shadowPos;
+out float shadowBias;
 
 
 void main() {
@@ -20,11 +21,13 @@ void main() {
 	vec3  viewPos = getView();
 	float Ldot    = saturate(dot(normalize(shadowLightPosition), normal) * 1.01 - 0.01);
 
+	float bias = 0.0;
 	if (Ldot > 0.0) {
 		vec3 playerPos  = toPlayer(viewPos);
-		shadowPos.xyz   = shadowPositionFull(playerPos, Ldot);
+		shadowPos.xyz   = shadowPositionFull(playerPos, Ldot, bias);
 	}
 	shadowPos.w = Ldot;
+	shadowBias  = bias;
 
 	
 	coord      = getCoord();

@@ -1,5 +1,6 @@
 #include "/lib/settings.glsl"
 #include "/lib/math.glsl"
+#include "/lib/kernels.glsl"
 #include "/lib/gbuffers_basics.glsl"
 
 uniform vec3 fogColor;

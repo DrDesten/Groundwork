@@ -18,10 +18,11 @@ const float sunPathRotation = -35.0;
 //const bool  shadowtex0Nearest = true;
 //const bool  shadowtex1Nearest = true;
 
-const int noiseTextureResolution = 64; 
+const int noiseTextureResolution = 32; 
 
 #include "/lib/settings.glsl"
 #include "/lib/math.glsl"
+#include "/lib/kernels.glsl"
 #include "/lib/composite_basics.glsl"
 
 in vec2 coord;
