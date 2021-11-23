@@ -36,7 +36,7 @@ void main() {
 
 	float noise  = texture(noisetex, gl_FragCoord.xy * (1./32)).x;
     //float shadow = shadowPCF(shadowData, 20, noise * TWO_PI);
-    float shadow = shadowPCSS(shadowData, noise * TWO_PI);
+    float shadow = shadowPCSS(shadowData, noise * TWO_PI, 15);
 	lm.y         = mix(shadowPos.w * 0.5 + 0.5, lm.y * 0.5, shadow);
 
 	vec4 color = getColor(coord);

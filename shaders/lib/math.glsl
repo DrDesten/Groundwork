@@ -251,7 +251,7 @@ float manhattan(vec4 v) {
 }
 
 
-float sq(float x) {
+float sq(float x) { // Square
     return x * x;
 }
 vec2 sq(vec2 x) {
@@ -262,6 +262,19 @@ vec3 sq(vec3 x) {
 }
 vec4 sq(vec4 x) {
     return x * x;
+}
+
+float ssq(float x) { // Signed Sqaure
+    return x * abs(x);
+}
+vec2 ssq(vec2 x) {
+    return x * abs(x);
+}
+vec3 ssq(vec3 x) {
+    return x * abs(x);
+}
+vec4 ssq(vec4 x) {
+    return x * abs(x);
 }
 
 float cb(float x) {
