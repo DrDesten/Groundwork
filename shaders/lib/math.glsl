@@ -2,7 +2,8 @@
 const float TWO_PI  = 6.28318530717958647692;
 const float PI      = 3.14159265358979323846;
 const float HALF_PI = 1.57079632679489661923;
-const float PHI     = 1.61803398874989484820459;
+const float INV_PI  = 0.31830988618379067153;
+const float PHI     = 1.61803398874989484820;
 
 vec2 radClamp(vec2 coord) {
     // Center at 0,0
@@ -188,10 +189,6 @@ mat2 rotationMatrix2(float angle) {
     float sa = sin(angle);
     return mat2(ca, sa, -sa, ca);
 }
-
-/* mat3 rotationMatrix3(float angleX, float angleY) {
-
-} */
 
 ////////////////////////////////////////////////////////////////////////
 // General functions
